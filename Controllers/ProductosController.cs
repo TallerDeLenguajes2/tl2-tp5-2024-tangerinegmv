@@ -20,5 +20,11 @@ public class ProductosController : ControllerBase
         return Ok(prodRep.ListarProductos());
     }
 
+    [HttpPost("CrearProducto")]
+    public ActionResult CrearProducto([FromBody]Productos producto)
+    {
+      prodRep.CrearNuevo(producto);
+      return Ok();
+    }
    
 }

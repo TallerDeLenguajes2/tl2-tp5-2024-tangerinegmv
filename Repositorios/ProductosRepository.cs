@@ -3,7 +3,7 @@ using Tienda;
 public class ProductosRepository
 {
 
-    private const string cadenaConexion = "DataSource=db\\Tienda.db";
+    private const string cadenaConexion = @"DataSource=db/Tienda.db";
     public void CrearNuevo(Productos prod)
     {
         using ( SqliteConnection connection = new SqliteConnection(cadenaConexion))
@@ -40,5 +40,5 @@ public List<Productos> ListarProductos()
 
             }
             return listaProd;
-        } 
+        }
 }
