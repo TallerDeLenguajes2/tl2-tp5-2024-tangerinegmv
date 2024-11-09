@@ -26,5 +26,12 @@ public class ProductosController : ControllerBase
       prodRep.CrearNuevo(producto);
       return Ok();
     }
+
+    [HttpPut("ModificarProducto/{id}")]
+    public ActionResult ModificarProducto(int id, [FromForm]Productos prod)
+    {
+      prodRep.ModificarProducto(id, prod);
+      return Ok();
+    }
    
 }

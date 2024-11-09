@@ -8,7 +8,7 @@ public class ProductosRepository
     {
         using ( SqliteConnection connection = new SqliteConnection(cadenaConexion))
         {
-            var query = "INSERT INTO Productos (Descripcion, Precio) VALUES (@Descripcion, @Precio)";
+            var query = "INSERT INTO Productos (Descripcion, Precio) VALUES (@Descripcion, @Precio);";
             connection.Open();
             var command = new SqliteCommand(query, connection);
             command.Parameters.Add(new SqliteParameter("@Descripcion", prod.Descripcion));
@@ -41,4 +41,19 @@ public List<Productos> ListarProductos()
             }
             return listaProd;
         }
+
+        public void ModificarProducto(int id, Productos prod)
+    {
+        using ( SqliteConnection connection = new SqliteConnection(cadenaConexion))
+        {
+            var query = "UPDATE Productos SET Descripcion = @Descripcion, Precio = @Precio WHERE idProducto = @id;";
+            connection.Open();
+            var command = new SqliteCommand(query, connection);
+            command.Parameters.Add(new SqliteParameter("@id", id));
+            command.Parameters.Add(new SqliteParameter("@Descripcion", prod.Descripcion));
+            command.Parameters.Add(new SqliteParameter("@Precio", prod.Precio));
+            command.ExecuteNonQuery();
+            connection.Close();
+        }
+    } 
 }
