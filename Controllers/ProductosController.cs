@@ -33,5 +33,12 @@ public class ProductosController : ControllerBase
       prodRep.ModificarProducto(id, prod);
       return Ok();
     }
+    
+    [HttpGet("DetalleProducto/{id}")]
+    public ActionResult<Productos> DetalleProducto(int id)
+    {
+        return Ok(prodRep.DetallesProducto(id));
+    }
+
    
 }

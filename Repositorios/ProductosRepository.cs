@@ -43,17 +43,44 @@ public List<Productos> ListarProductos()
         }
 
         public void ModificarProducto(int id, Productos prod)
-    {
-        using ( SqliteConnection connection = new SqliteConnection(cadenaConexion))
         {
-            var query = "UPDATE Productos SET Descripcion = @Descripcion, Precio = @Precio WHERE idProducto = @id;";
-            connection.Open();
-            var command = new SqliteCommand(query, connection);
-            command.Parameters.Add(new SqliteParameter("@id", id));
-            command.Parameters.Add(new SqliteParameter("@Descripcion", prod.Descripcion));
-            command.Parameters.Add(new SqliteParameter("@Precio", prod.Precio));
-            command.ExecuteNonQuery();
-            connection.Close();
+            using ( SqliteConnection connection = new SqliteConnection(cadenaConexion))
+            {
+                var query = "UPDATE Productos SET Descripcion = @Descripcion, Precio = @Precio WHERE idProducto = @id;";
+                connection.Open();
+                var command = new SqliteCommand(query, connection);
+                command.Parameters.Add(new SqliteParameter("@id", id));
+                command.Parameters.Add(new SqliteParameter("@Descripcion", prod.Descripcion));
+                command.Parameters.Add(new SqliteParameter("@Precio", prod.Precio));
+                command.ExecuteNonQuery();
+                connection.Close();
+            }
+        } 
+
+        public Productos DetallesProducto(int id)
+        {
+            var prod = new Productos();
+            using (SqliteConnection connection = new SqliteConnection(cadenaConexion))
+            {
+                string query = "SELECT * FROM Productos WHERE idProducto = @id;";
+                SqliteCommand command = new SqliteCommand(query, connection);
+                command.Parameters.Add(new SqliteParameter("@id", id));
+                connection.Open();
+                using(SqliteDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        
+                        prod.IdProducto = Convert.ToInt32(reader["idProducto"]);
+                        prod.Descripcion = reader["Descripcion"].ToString();
+                        prod.Precio = Convert.ToInt32(reader["Precio"]);
+                        
+                    }
+                }
+                connection.Close();
+
+            }
+            return prod;
         }
-    } 
+        
 }
