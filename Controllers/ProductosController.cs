@@ -21,7 +21,7 @@ public class ProductosController : ControllerBase
     }
 
     [HttpPost("CrearProducto")]
-    public ActionResult CrearProducto([FromBody]Productos producto)
+    public ActionResult CrearProducto([FromForm]Productos producto)
     {
       prodRep.CrearNuevo(producto);
       return Ok();
