@@ -40,5 +40,11 @@ public class ProductosController : ControllerBase
         return Ok(prodRep.DetallesProducto(id));
     }
 
+    [HttpDelete("BorrarProducto/{id}")]
+    public ActionResult BorrarProducto(int id)
+    {
+      prodRep.BorrarProducto(id);
+      return Ok();
+    }
    
 }

@@ -83,4 +83,17 @@ public List<Productos> ListarProductos()
             return prod;
         }
         
+
+        public void BorrarProducto(int id)
+        {
+            using ( SqliteConnection connection = new SqliteConnection(cadenaConexion))
+            {
+                var query = "DELETE FROM Productos WHERE idProducto = @id;";
+                connection.Open();
+                var command = new SqliteCommand(query, connection);
+                command.Parameters.Add(new SqliteParameter("@id", id));
+                command.ExecuteNonQuery();
+                connection.Close();
+            }
+        }
 }
